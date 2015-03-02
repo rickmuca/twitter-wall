@@ -4,6 +4,24 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var Twitter = require('twitter');
+
+var twitter_client = new Twitter({
+    consumer_key: 'l0RgpgwZqmFHELC4mLFbweiPn',
+    consumer_secret: 'elePPB56ILavK7sGmcpvZqn1LuENe5B6ikLMYILpZIyH1w2HDd',
+    access_token_key: '1903965426-BX530HWvnDW6uEt7F8ezpnsuCzNjGlrjVpY2Lwd',
+    access_token_secret: '4iZ6r19k7tWlxT4nYa4oQbj2KMFeUyK9vEweYdpgaQ7Gf'
+});
+
+twitter_client.stream('statuses/filter', {track: 'javascript'}, function(stream) {
+    stream.on('data', function(tweet) {
+        console.log(tweet.text);
+    });
+
+    stream.on('error', function(error) {
+        throw error;
+    });
+});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
