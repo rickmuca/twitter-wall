@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>SmartPlayDS Twitter Wall Moderator</title>
+</head>
+<body>
+    <ul class="tweets"></ul>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect();
+        jQuery(function ($) {
+            var tweet_list = $('ul.tweets');
+            socket.on('tweet', function (tweet){
+                tweet_list
+                        .prepend('<li>' + tweet.user + ": " + tweet.text + '</li>');
+            });
+        });
+    </script>
+</body>
+</html>
