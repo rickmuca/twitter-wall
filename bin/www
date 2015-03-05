@@ -41,7 +41,7 @@ server.on('listening', onListening);
 
 twitter_client.stream('statuses/filter', {track: 'javascript'}, function(stream) {
     stream.on('data', function(tweet) {
-        console.log(tweet.user.screen_name + ": " + tweet.text);
+        //console.log(tweet.user.screen_name + ": " + tweet.text);
         io.sockets.emit('tweet', {
             user: tweet.user.screen_name,
             text: tweet.text
@@ -52,6 +52,14 @@ twitter_client.stream('statuses/filter', {track: 'javascript'}, function(stream)
         throw error;
     });
 });
+
+io.on('connection', function (socket) {
+    socket.on('wall', function (data) {
+        io.sockets.emit('wall', data);
+    });
+});
+
+
 
 /**
  * Normalize a port into a number, string, or false.

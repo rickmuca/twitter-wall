@@ -13,6 +13,7 @@
         jQuery(function ($) {
             var tweet_list = $('ul.tweets');
             socket.on('tweet', function (tweet){
+                socket.emit('wall', tweet );
                 tweet_list
                         .prepend('<li>' + tweet.user + ": " + tweet.text + '</li>');
             });
