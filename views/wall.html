@@ -2,11 +2,17 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
     <title>SmartPlayDS Twitter Wall Moderator</title>
 </head>
 <body>
     <ul class="tweets"></ul>
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io.connect();
