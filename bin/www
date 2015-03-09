@@ -39,11 +39,14 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-twitter_client.stream('statuses/filter', {track: 'javascript'}, function(stream) {
+twitter_client.stream('statuses/filter', {track: 'java'}, function(stream) {
     stream.on('data', function(tweet) {
         //console.log(tweet.user.screen_name + ": " + tweet.text);
+        console.log(tweet);
         io.sockets.emit('tweet', {
+            id: tweet.id,
             user: tweet.user.screen_name,
+            user_img: tweet.user.profile_image_url,
             text: tweet.text
         });
     });
