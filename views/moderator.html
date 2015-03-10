@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!--<script type="text/javascript">
+        $(document).ready(function(){
+            $(document).on("click", "button.btn-danger" , function() {
+                $(this).parent().remove();
+            });
+        });
+    </script>-->
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -57,11 +64,21 @@
         jQuery(function ($) {
             var tweet_list = $('ul.tweets');
             socket.on('tweet', function (tweet){
-                socket.emit('wall', tweet );
                 tweet_list
-                        .prepend('<div id=' + tweet.id + '><li>' + tweet.user + ": " + tweet.text + '</li>'+ '<button type="button" class="btn btn-success"> ' +
+                        .prepend('<ul class="tweet"><li class="tweet_user">' + tweet.user + '</li>:<div class="tweet_text">' + tweet.text + '</div>'+ '<button type="button" class="btn btn-success"> ' +
                         '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Accept</button>'+ '<button type="button" class="btn btn-danger"> ' +
                         '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Remove</button></div>');
+            });
+        });
+        $(document).ready(function(){
+            $(document).on("click", "button.btn-success" , function() {
+                console.log($(this).parent().find('li.tweet_user').text());
+                socket.emit('wall', {user: $(this).parent().find('li.tweet_user').text(),
+                                    text: $(this).parent().find('div.tweet_text').text()} );
+                $(this).parent().remove();
+            });
+            $(document).on("click", "button.btn-danger" , function() {
+                $(this).parent().remove();
             });
         });
 
